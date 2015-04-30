@@ -2869,6 +2869,20 @@ bool FileList::ChangeDir(const string& NewDir,bool ResolvePath,bool IsUpdated,co
 			SetDirectorySuccess=Global->CtrlObject->Plugins->SetDirectory(m_hPlugin,strSetDir,0,&UserData) != FALSE;
 		}
 
+		if (!PluginClosed)
+		{
+			OpenPanelInfo info;
+			Global->CtrlObject->Plugins->GetOpenPanelInfo(m_hPlugin, &info);
+			/* $ 16.01.2002 VVM
+			+ ���� � ������� ��� OPIF_REALNAMES, �� ������� ����� �� ������� � ������ */
+			string curDir = NullToEmpty(info.CurDir);
+			//string strInfoFormat=NullToEmpty(Info.Format);
+			string hostFile = NullToEmpty(info.HostFile);
+			string strInfo = NullToEmpty(info.ShortcutData);
+			if (info.Flags&OPIF_SHORTCUT)
+				Global->CtrlObject->FolderHistory->AddToHistory(curDir, HR_DEFAULT, &PluginManager::GetGUID(m_hPlugin), hostFile.data(), strInfo.data());
+		}
+
 		ProcessPluginCommand();
 
 		// после закрытия панели нужно сразу установить внутренний каталог, иначе будет "Cannot find the file" - Mantis#1731
@@ -2953,6 +2967,8 @@ bool FileList::ChangeDir(const string& NewDir,bool ResolvePath,bool IsUpdated,co
 	m_CurDir = os::GetCurrentDirectory();
 	if (!IsUpdated)
 		return SetDirectorySuccess;
+
+	Global->CtrlObject->FolderHistory->AddToHistory(ConvertNameToFull(m_CurDir));
 
 	Update(UpdateFlags);
 
@@ -6268,6 +6284,14 @@ void FileList::SetPluginMode(plugin_panel* hPlugin,const string& PluginFile,bool
 		ParentWindow->SetActivePanel(shared_from_this());
 
 	Global->CtrlObject->Plugins->GetOpenPanelInfo(hPlugin,&m_CachedOpenPanelInfo);
+
+	{
+		string strInfoCurDir = NullToEmpty(m_CachedOpenPanelInfo.CurDir);
+		string strInfoHostFile = NullToEmpty(m_CachedOpenPanelInfo.HostFile);
+		string strInfoData = NullToEmpty(m_CachedOpenPanelInfo.ShortcutData);
+	  if (m_CachedOpenPanelInfo.Flags&OPIF_SHORTCUT)
+		Global->CtrlObject->FolderHistory->AddToHistory(strInfoCurDir, HR_DEFAULT, &PluginManager::GetGUID(hPlugin), strInfoHostFile.data(), strInfoData.data());
+	}
 
 	if (m_CachedOpenPanelInfo.StartPanelMode)
 		SetViewMode(VIEW_0 + m_CachedOpenPanelInfo.StartPanelMode-L'0');

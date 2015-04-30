@@ -161,6 +161,13 @@ void FileViewer::Init(const string& name,int EnableSwitch,int disableHistory,
 	if (ViewStartPos != -1)
 		m_View->SetFilePos(ViewStartPos);
 
+	if (!DisableHistory && (Global->CtrlObject->Cp()->ActivePanel() || m_Name != L"-"))
+	{
+		string strFullFileName;
+		m_View->GetFileName(strFullFileName);
+		Global->CtrlObject->ViewHistory->AddToHistory(strFullFileName, HR_VIEWER);
+	}
+
 	m_ExitCode=TRUE;
 
 	if (Global->Opt->ViOpt.ShowKeyBar)

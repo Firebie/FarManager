@@ -668,6 +668,11 @@ void FileEditor::Init(
 	if (GetExitCode() == XC_LOADING_INTERRUPTED || GetExitCode() == XC_OPEN_ERROR)
 		return;
 
+	if (!m_Flags.Check(FFILEEDIT_DISABLEHISTORY) && StrCmpI(strFileName.data(), MSG(MNewFileName)))
+		Global->CtrlObject->ViewHistory->AddToHistory(strFullFileName, m_editor->m_Flags.Check(Editor::FEDITOR_LOCKMODE) ? HR_EDITOR_RO : HR_EDITOR);
+	
+	ShowConsoleTitle();
+
 	InitKeyBar();
 	m_windowKeyBar->SetPosition(m_X1, m_Y2, m_X2, m_Y2);
 
