@@ -9693,7 +9693,7 @@ MListEb
 
 MListFileSize
 " Байт: {0}, файлов: {1}, папок: {2} "
-" Bytes: {0}, files: {1}, folders: {2} "
+" {0} ({1}|{2}) "
 upd:" Bytes: {0}, files: {1}, folders: {2} "
 upd:" Bytes: {0}, files: {1}, folders: {2} "
 upd:" Bytes: {0}, files: {1}, folders: {2} "
@@ -9705,7 +9705,7 @@ upd:" Bytes: {0}, files: {1}, folders: {2} "
 
 MListFileSizeStatus
 " {0} ({1}/{2}) {3} {4} "
-" {0} ({1}/{2}) {3} {4} "
+" {0} ({1}|{2}) {3} {4} "
 " {0} ({1}/{2}) {3} {4} "
 " {0} ({1}/{2}) {3} {4} "
 " {0} ({1}/{2}) {3} {4} "
