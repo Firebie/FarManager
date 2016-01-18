@@ -848,7 +848,9 @@ static int ChangeDiskMenu(panel_ptr Owner, int Pos, bool FirstCall)
 
 		SCOPED_ACTION(listener)(update_devices, [&NeedRefresh] { NeedRefresh = true; });
 
-		ChDisk->Run([&](const Manager::Key& RawKey)
+		Owner->SetTitle();
+
+    ChDisk->Run([&](const Manager::Key& RawKey)
 		{
 			auto Key = RawKey();
 			if (Key == KEY_NONE && NeedRefresh)
