@@ -4773,6 +4773,9 @@ void Editor::SelectAll()
 	}
 	Lines.back().Select(0, Lines.back().GetLength());
 
+	m_it_CurLine = LastLine();
+	m_it_CurLine->SetCurPos(Lines.back().GetLength());
+
 	TurnOffMarkingBlock();
 
 	Show();
