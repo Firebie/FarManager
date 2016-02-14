@@ -1,0 +1,16 @@
+call _update_one.x32.cmd align
+call _update_one.x32.cmd autowrap
+call _update_one.x32.cmd brackets
+call _update_one.x32.cmd compare
+call _update_one.x32.cmd drawline
+call _update_one.x32.cmd editcase
+call _update_one.x32.cmd emenu
+call _update_one.x32.cmd farcmds
+call _update_one.x32.cmd filecase
+call _update_one.x32.cmd hlfviewer
+call _update_one.x32.cmd network
+call _update_one.x32.cmd proclist
+call _update_one.x32.cmd tmppanel
+call _update_one.x32.cmd samefolder
+call _update_luamacro.x32.cmd luamacro
+call _update_arclite.x32.cmd  arclite

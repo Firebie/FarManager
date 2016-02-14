@@ -1,0 +1,6 @@
+.exp
+.lib
+.pdb
+Rus.lng
+Sky.lng
+Spa.lng
